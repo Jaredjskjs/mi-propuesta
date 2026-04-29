@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>¿Te casarías conmigo?</title>
+
+<style>
+
+body{
+margin:0;
+overflow:hidden;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#ffd6e7,#fff0f5);
+font-family:Arial;
+text-align:center;
+}
+
+.contenedor{
+z-index:2;
+padding:20px;
+}
+
+h1{
+font-size:clamp(2rem,8vw,4.5rem);
+color:#d63384;
+margin-bottom:45px;
+}
+
+button{
+padding:18px 35px;
+font-size:24px;
+border:none;
+border-radius:20px;
+cursor:pointer;
+margin:10px;
+box-shadow:0 6px 20px rgba(0,0,0,.15);
+}
+
+#si{
+background:#ff4d88;
+color:white;
+}
+
+#si:hover{
+transform:scale(1.1);
+}
+
+#no{
+background:#666;
+color:white;
+position:fixed;
+left:60%;
+top:60%;
+transition:.15s;
+}
+
+.corazon{
+position:fixed;
+font-size:25px;
+animation:flotar 6s linear infinite;
+opacity:.8;
+pointer-events:none;
+}
+
+@keyframes flotar{
+0%{
+transform:translateY(100vh) scale(1);
+opacity:1;
+}
+100%{
+transform:translateY(-10vh) scale(1.8);
+opacity:0;
+}
+}
+
+</style>
+</head>
+<body>
+
+
+<div class="contenedor">
+
+<h1>
+¿Te querrías casar conmigo? 💍
+</h1>
+
+<button id="si"
+onclick="window.location='si.html'">
+Sí
+</button>
+
+<button id="no">
+No
+</button>
+
+</div>
+
+
+
+<script>
+
+const noBtn=document.getElementById("no");
+
+const frases=[
+"No",
+"¿Segura?",
+"Piénsalo...",
+"¿De verdad?",
+"Última oportunidad",
+"Ya di que sí 😭",
+"No puedes escapar"
+];
+
+let intento=0;
+let tamaño=1;
+
+
+
+function escapar(){
+
+let x=Math.random()*(window.innerWidth-130);
+let y=Math.random()*(window.innerHeight-90);
+
+noBtn.style.left=x+"px";
+noBtn.style.top=y+"px";
+
+
+if(intento < frases.length){
+noBtn.innerText=frases[intento];
+intento++;
+}
+
+
+tamaño*=0.92;
+noBtn.style.transform=`scale(${tamaño})`;
+
+}
+
+
+
+noBtn.addEventListener("mouseover",escapar);
+
+noBtn.addEventListener("click",escapar);
+
+
+noBtn.addEventListener(
+"touchstart",
+function(e){
+e.preventDefault();
+escapar();
+}
+);
+
+
+
+function crearCorazon(){
+
+const heart=document.createElement("div");
+
+heart.classList.add("corazon");
+
+heart.innerHTML="💖";
+
+heart.style.left=Math.random()*100+"vw";
+
+heart.style.fontSize=
+(20+Math.random()*30)+"px";
+
+
+document.body.appendChild(heart);
+
+
+setTimeout(()=>{
+heart.remove();
+},6000);
+
+}
+
+
+
+setInterval(crearCorazon,500);
+
+</script>
+
+</body>
+</html>
